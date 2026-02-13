@@ -1,13 +1,21 @@
 import express from 'express'
 import cors from 'cors'
-import mysql2 from 'mysql2/promise'
 
 const app = express()
 
+import { router } from "./routers/veiculo.js"
+
+
+app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) =>{
     res.send('hello')
 })
+
+app.use("/veiculo", router)
+
+
+
 
 export default app

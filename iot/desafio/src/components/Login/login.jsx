@@ -4,7 +4,7 @@ const Login = () =>{
 
     return (
         <>
-            <h1>Login</h1>
+            <h1 className={style.title_login}>Login</h1>
             <form action="">
                 <label htmlFor="">E-mail</label>
                 <input type="text"  id="email"/>
