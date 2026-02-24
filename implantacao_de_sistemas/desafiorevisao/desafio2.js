@@ -1,0 +1,3 @@
+function adicioonarTaz(gangue){
+    if()
+}
