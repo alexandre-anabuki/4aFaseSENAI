@@ -91,30 +91,50 @@ const Produtos = () => {
       if(modo === "add"){
         const ok = await adicionarProduto(payload)
 
-        if(!ok){
-          console.log("Não foi possivel adicionar seu produto")
+        if(ok === ""){
+          alert("Não foi possivel adicionar seu produto")
+          return false
         }
-        return
+        alert("produto adicionado com sucesso")
       }
 
       else{
         if(!produtoSelecionado.id){
           console.log("Nehum produto selsecionado")
-          return
+          return false
         }
 
         const ok = await editarProduto(produtoSelecionado.id, payload)
         if(!ok){
           console.log("Não foi possivel editar seu produto")
+          return false
         }
-        return
+        alert("Produto editado com sucesso")
       }
+
+      await carregarProdutos()  
+
+      fecharModal()
 
     }catch (error) {
       console.log("Erro", error)
     }
   }
   
+  const remover = async (id) => {
+    try{
+      const excluido = await excluirProduto(id)
+      if(excluido === ""){
+        alert("Erro ao exlcuir produto")
+        return false
+      }
+      alert("Produto exlcuido com sucesso")
+
+      carregarProdutos()
+    }catch (error) {
+      console.log("Error", error)
+    }
+  }
   
   return (
    <div className="container">  

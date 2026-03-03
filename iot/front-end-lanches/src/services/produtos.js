@@ -16,29 +16,32 @@ export async function getProdutos() {
 export async function adicionarProduto(produto) {
     const response = await api.post('/produto', produto)
 
+    let r = ""
     if (response.status === 201){
-        return true
+        r = response.message
     }
-
-    return false
+    
+    return r
 }
 
 export async function editarProduto(id, produto) {
     const response = await api.patch(`/produto/${id}`, produto)
 
+    let r = ""
     if (response.status === 200){
-        return true
+        r = response.message
     }
 
-    return false
+    return r
 }
 
 export async function excluirProduto(id, produto) {
     const response = await api.delete(`/produto/${id}`, produto)
 
+    let r = ""
     if (response.status === 200){
-        return true
+        r = response.message
     }
 
-    return false
+    return r
 }

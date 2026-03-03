@@ -54,9 +54,9 @@ const excluirProduto = async (req, res) => {
 const adicionarProduto = async (req, res) => {
 	
 	try{
-		const {nome, descricao, valor} = req.body
+		const {nome, descricao, valor, ativo} = req.body
 
-		const [resultado] = await db.query("INSERT INTO produto (nome, descricao, valor) VALUES (?, ?, ?)", [nome, descricao, valor])
+		const [resultado] = await db.query("INSERT INTO produto (nome, descricao, valor, ativo) VALUES (?, ?, ?, ?)", [nome, descricao, valor, ativo])
 
 		if(resultado.affectedRows === 0){
 			return res.status(400).json({message: "Produto não foi criado."})

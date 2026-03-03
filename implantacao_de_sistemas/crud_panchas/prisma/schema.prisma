@@ -1,0 +1,18 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("crud_pranchas")
+}
+
+Model Pranchas {
+    id_prancha      Int      @id @default(autoincrement())
+    nome_prancha    String
+    modelo          String
+    quantidade      Int
+
+    @@map("prancha")
+}
