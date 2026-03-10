@@ -11,20 +11,20 @@ const login = async(req, res) => {
         const {email, senha} = req.body
     
         if(email === "" || senha === ""){
-            return res.status(400).json({message: "Email ou senha inválidos"})
+            return res.status(400).json({message: "Email ou senha inválidos", success: false})
         }
     
         const [result] = await db.query("SELECT id_usuario, nome, email, senha, tipo FROM usuario WHERE email = ? LIMIT 1", [email])
     
         if(result.length === 0){
-            return res.status(400).json({message: "credenciais inválidas"})
+            return res.status(400).json({message: "credenciais inválidas", success: false})
         }
     
         const user = result[0]
     
         const ok = await bcrypt.compare(senha, user.senha)
         if(!ok){
-            return res.status(401).json({message: "credenciais inválidas"})
+            return res.status(401).json({message: "credenciais inválidas", success: false})
         }
     
         const token = jwt.sign(
@@ -46,7 +46,8 @@ const login = async(req, res) => {
                 nome: user.nome,
                 email: user.email,
                 tipo: user.tipo
-            }
+            },
+            success : true
         })
 
     } catch (error){

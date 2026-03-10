@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
         const tipo = req.body.tipo
 
         if(nome === ""){
-            return res.status(400).json({message: "Nome não deve estar vazio"})
+            return res.status(400).json({message: "Nome não deve estar vazio", success: false})
         }
         const saltRound = 10
         const hashPassword = await bcrypt.hash(senha, saltRound)
@@ -18,10 +18,10 @@ const createUser = async (req, res) => {
         const [result] = await db.query("INSERT INTO usuario (nome, email, senha, tipo) VALUES (?, ?, ?, ?)", [nome, email, hashPassword, tipo])
 
         if(result.affectedRows === 0){
-            return res.status(400).json({message: "Não foi possível inserir usuário"})
+            return res.status(400).json({message: "Não foi possível inserir usuário", success: false})
         }
 
-        return res.status(201).json({message: "Usuário criado com sucesso"})
+        return res.status(201).json({message: "Usuário criado com sucesso", success: true})
 
     } catch (error) {
         return res.status(500).json({message: "Erro ao criar ususário", erro: error.message})
