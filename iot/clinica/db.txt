@@ -1,0 +1,21 @@
+CREATE DATABASE clinica;
+
+CREATE TABLE usuario (
+id_usuario INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(50),
+cpf INT UNIQUE,
+senha CHAR(64),
+ativo INT,
+PRIMARY KEY (id_usuario)
+);
+
+CREATE TABLE agendamento (
+id_agendamento INT NOT NULL AUTO_INCREMENT,
+data_marcada DATE,
+horario TIME,
+tipo_usuario ENUM ("Médico", "Analista Administrativo"),
+usuario_id INT,
+FOREIGN KEY (usuario_id)
+REFERENCES usuario (id_usuario),
+PRIMARY KEY (id_agendamento)
+);
