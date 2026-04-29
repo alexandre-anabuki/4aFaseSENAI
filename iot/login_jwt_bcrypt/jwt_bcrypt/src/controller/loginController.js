@@ -1,7 +1,7 @@
-const db = require ('../config/db.js')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv')
+    const db = require ('../config/db.js')
+    const bcrypt = require('bcrypt')
+    const jwt = require('jsonwebtoken')
+    const dotenv = require('dotenv')
 
 dotenv.config()
 
