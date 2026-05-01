@@ -70,7 +70,7 @@ const deletarCliente = async (req, res) => {
         if(result.affectedRows === 0){
             return res.status(404).json({message: "Cliente não encontrado"})
         }
-        return res.status(200).json({ message: "Cliente deletado com sucesso", data: resul })
+        return res.status(200).json({ message: "Cliente deletado com sucesso", data: result })
     }
     catch (error) {
         return res.status(500).json({ message: "Erro ao deletar cliente", error: error.message })

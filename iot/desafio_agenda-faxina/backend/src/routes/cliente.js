@@ -1,11 +1,11 @@
 const express = require("express")
-const routeCliente = express.Router()
+const routerCliente = express.Router()
 
 const {criarCliente, editarCliente, buscarClientes, deletarCliente} = require ('../controller/clienteController.js')
 
-routeCliente.post('/cliente', criarCliente)
-routeCliente.get('/cliente', buscarClientes)
-routeCliente.patch('/cliente/:id', editarCliente)
-routeCliente.delete('/cliente/:email', deletarCliente)
+routerCliente.post('/cliente', criarCliente)
+routerCliente.get('/cliente', buscarClientes)
+routerCliente.patch('/cliente/:id', editarCliente)
+routerCliente.delete('/cliente/:email', deletarCliente)
 
-module.exports = routeCliente
+module.exports = routerCliente

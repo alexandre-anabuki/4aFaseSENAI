@@ -1,5 +1,5 @@
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+const mysql= require('mysql2/promise') ;
+const dotenv= require('dotenv') ;
 dotenv.config();
 
 const db = mysql.createPool({
@@ -9,4 +9,4 @@ const db = mysql.createPool({
     database: process.env.DB_DATABASE ?? 'faxina_db2',
 });
 
-export default db;
+module.exports = db;

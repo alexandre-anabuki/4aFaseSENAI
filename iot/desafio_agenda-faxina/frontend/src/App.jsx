@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import CadastroCliente from "./components/CadastroCliente"
-import Login from "./components/Login"
+import Agendamento from "./components/Agendamento"
+import Logar from "./components/Logar"
 
 function App() {
 
@@ -10,7 +11,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path ="/cadastro" element={<CadastroCliente/>} />
-          <Route path ="/login" element={<Login/>}/>
+          <Route path ="/login" element={<Logar/>}/>
+          <Route paath="/agendamento" element={<Agendamento/>}/>
         </Routes>
 
       </BrowserRouter>

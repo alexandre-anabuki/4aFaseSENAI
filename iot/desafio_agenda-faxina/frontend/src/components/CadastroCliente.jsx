@@ -1,7 +1,10 @@
 import { useState } from "react"
 import { cadastroApi } from "../services/cliente"
+import { Navigate, useNavigate } from "react-router-dom"
 
 const CadastroCliente = () => {
+
+    const navigate = useNavigate()
 
     const [form, setForm] = useState({
         nome: '',
@@ -19,6 +22,9 @@ const CadastroCliente = () => {
             if(response.success){
                 alert('usuario criado com sucesso')
             }
+
+            navigate("/login")
+
         } catch(error){
             console.error(error)
         }
@@ -42,12 +48,12 @@ const CadastroCliente = () => {
 
                     <div className="mb-3">
                         <label htmlFor="cpf" className="form-label">CPF</label>
-                        <input type="text" className="form-control" id="cpf" placeholder="12323131209" value={form.nome} onChange={(event) =>setForm({...form, cpf : event.target.value})}/>
+                        <input type="text" className="form-control" id="cpf" placeholder="12323131209" value={form.cpf} onChange={(event) =>setForm({...form, cpf : event.target.value})}/>
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="telefone" className="form-label">Telefone</label>
-                        <input type="text" className="form-control" id="telefone" placeholder="(11) 55555555" value={form.nome} onChange={(event) =>setForm({...form, telefone : event.target.value})}/>
+                        <input type="text" className="form-control" id="telefone" placeholder="(11) 55555555" value={form.telefone} onChange={(event) =>setForm({...form, telefone : event.target.value})}/>
                     </div>
 
                     <div className="mb-3">

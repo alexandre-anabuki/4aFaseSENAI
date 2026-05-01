@@ -3,7 +3,7 @@ import { loginApi } from "../services/login"
 import { useNavigate } from "react-router-dom"
 
 
-function Login() {
+function Logar() {
 
     const navigate = useNavigate()
 
@@ -23,7 +23,7 @@ function Login() {
                 alert("login realizado com sucesso")
             }
 
-            navigate('/cadastroCliente')
+            navigate('/agendamento')
 
 
         } catch(error){
@@ -31,6 +31,10 @@ function Login() {
         }
 
 
+    }
+
+    const cadastrar = async() => {
+        navigate("/cadastro")
     }
 
 
@@ -45,9 +49,11 @@ function Login() {
 
             <button type="submit">Entrar</button>
 
+            <a onClick={cadastrar}>Não possui uma conta?</a>
+
         </form>
     </div>
   )
 }
 
-export default Login
+export default Logar
