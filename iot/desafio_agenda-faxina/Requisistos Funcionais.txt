@@ -1,0 +1,7 @@
+Sistema de agendamento de faxina
+
+- O sistema deve evitar conflito de horários no agendamento
+- O sistema deve alertar quando a faxina será feita
+- O sistema deve mostra quais funcionário estão disponíveis no dado agendamento
+- O sistema deve possuir um meio de comunicação entre cliente e profissional
+- O sistema deve emitir um histórico do agendamento

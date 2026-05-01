@@ -1,0 +1,59 @@
+CREATE DATABASE faxina_db2;
+
+CREATE TABLE cliente(
+id_cliente INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+email VARCHAR(45) UNIQUE,
+cpf VARCHAR(45),
+telefone VARCHAR(45),
+senha CHAR(64),
+PRIMARY KEY (id_cliente)
+);
+
+CREATE TABLE profissional(
+id_profissional INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+email VARCHAR(45) UNIQUE,
+cpf VARCHAR(45),
+telefone VARCHAR(45),
+especializacao VARCHAR(45),
+senha CHAR(64),
+PRIMARY KEY (id_profissional)
+);
+
+CREATE TABLE agendamento(
+id_agendamento INT NOT NULL AUTO_INCREMENT,
+tipo VARCHAR(45),
+data_horario DATETIME,
+bairro VARCHAR(45),
+rua VARCHAR(45),
+cep INT,
+numero INT,
+observacao TEXT(50),
+cliente_id INT,
+profissional_id INT,
+FOREIGN KEY (cliente_id) REFERENCES cliente (id_cliente),
+FOREIGN KEY (profissional_id) REFERENCES profissional (id_profissional),
+PRIMARY KEY (id_agendamento)
+);
+
+INSERT INTO cliente
+(`nome`, `email`, `cpf`, `telefone`, `senha`)
+VALUES
+("João", "joao@email.com", "11122233344", "(48)95555555", "joaosenha"),
+("Maria", "maria@email.com", "44422233355", "(48)95555554", "mariasenha"),
+("André", "andre@email.com", "33355577799", "(48)95555553", "andresenha");
+
+INSERT INTO profissional
+(`nome`, `email`, `cpf`, `telefone`, `senha`, `especializacao`)
+VALUES
+("Lucas", "lucas@email.com", "21345678901", "(48)95555557", "lucassenha", "pesada"),
+("Vitor", "vitor@email.com", "89081253292", "(48)95555558", "vitorsenha", "leve"),
+("Emanuel", "emanuel@email.com", "67831209458", "(48)95555550", "emanuelsenha", "industrial");
+
+INSERT INTO agendamento
+(`tipo`, `data_horario`, `bairro`, `rua`, `cep`, `numero`, `observacao`, `cliente_id`, `profissional_id`)
+VALUES
+("residencia", NOW(), "bairro1", "rua1", 12345, 100, "objetos frageis", 1, 2),
+("residencia", NOW(), "bairro2", "rua2", 34591, 241, "usar cera", 2, 1),
+("comercial", NOW(), "bairro3", "rua3", 90013, 190, "EPI obrigatorio", 3, 3);
