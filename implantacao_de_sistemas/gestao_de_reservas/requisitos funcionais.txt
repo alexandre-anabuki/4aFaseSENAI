@@ -1,0 +1,4 @@
+Requisitos funcionais
+
+- O sistema deve emitir um alerta quando a disponibilidade de quartos atinge um limite mínimo ou próximo do overbooking
+- O sistema deve emitir um histórico de movimentação, incluindo o responsável e a data da operação

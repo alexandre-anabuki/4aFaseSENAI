@@ -1,0 +1,61 @@
+CREATE DATABASE hotel_db;
+
+CREATE TABLE cliente(
+id_cliente INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+email VARCHAR(45) UNIQUE,
+cpf VARCHAR(45),
+telefone VARCHAR(45),
+observacoes TEXT(100),
+senha CHAR(64),
+PRIMARY KEY (id_cliente)
+);
+
+CREATE TABLE funcionario(
+id_funcionario INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(45),
+email VARCHAR(45) UNIQUE,
+cpf VARCHAR(45),
+telefone VARCHAR(45),
+turno ENUM("Matutino", "Vespertino", "Noturno"),
+senha CHAR(64),
+PRIMARY KEY (id_funcionario)
+);
+
+CREATE TABLE reserva(
+id_reserva INT NOT NULL AUTO_INCREMENT,
+tipo_reserva ENUM("Simples", "Duplo", "Suíte"),
+data_horario_entrada DATETIME,
+data_horario_saida DATETIME,
+qtd_hospedes INT,
+quarto INT,
+tipo_pagamento VARCHAR(45),
+valor DECIMAL(9,2),
+observacoes TEXT(100),
+cliente_id INT,
+FOREIGN KEY (cliente_id) REFERENCES cliente (id_cliente),
+funcionario_id INT,
+FOREIGN KEY (funcionario_id) REFERENCES funcionario (id_funcionario),
+PRIMARY KEY (id_reserva)
+);
+
+INSERT INTO cliente
+(`nome`, `email`, `cpf`, `telefone`, `senha`)
+VALUES
+("João", "joao@email.com", "11122233344", "(48)95555555", "joaosenha"),
+("Maria", "maria@email.com", "44422233355", "(48)95555554", "mariasenha"),
+("André", "andre@email.com", "33355577799", "(48)95555553", "andresenha");
+
+INSERT INTO funcionario
+(`nome`, `email`, `cpf`, `telefone`, `senha`, `turno`)
+VALUES
+("Lucas", "lucas@email.com", "21345678901", "(48)95555557", "lucassenha", "Matutino"),
+("Vitor", "vitor@email.com", "89081253292", "(48)95555558", "vitorsenha", "Vespertino"),
+("Emanuel", "emanuel@email.com", "67831209458", "(48)95555550", "emanuelsenha", "Noturno");
+
+INSERT INTO reserva
+(`tipo_reserva`, `data_horario_entrada`, `data_horario_saida`, `qtd_hospedes`, `quarto`, `tipo_pagamento`, `valor`, `cliente_id`, `funcionario_id`)
+VALUES
+("Simples", "2026-01-10 10:00:00", "2026-01-20", 1, 100, "cartão á vista", 213.99, 1, 1),
+("Duplo", "2026-02-15 11:00:00", "2026-02-22", 4, 200, "cartão á parcelado", 213.99, 2, 2),
+("Suíte", "2026-03-05 12:00:00", "2026-03-10", 2, 300, "cartão á vista", 213.99, 3, 3);
