@@ -2,22 +2,20 @@ const db = require('../config/db.js')
 
 const criarReserva = async (req, res) =>{
     try{
-        const tipo_reserva = req.body.tipo_reserva
         const data_horario_entrada = req.body.data_horario_entrada
         const data_horario_saida = req.body.data_horario_saida
         const qtd_hospedes = req.body.qtd_hospedes
-        const quarto = req.body.quarto
         const tipo_pagamento = req.body.tipo_pagamento
         const valor = req.body.valor
         const observacao = req.body.observacao
         const cliente_id = req.body.cliente_id
-        const funcionario_id = req.body.funcionario_id
+        const quarto_id = req.body.quarto_id
 
-        if(tipo_reserva === "" || data_horario_entrada === "" || data_horario_saida ==="" || qtd_hospedes === "" || quarto === "" || tipo_pagamento === "" || valor == "" || cliente_id == "" || funcionario_id == ""){
+        if(data_horario_entrada === "" || data_horario_saida ==="" || qtd_hospedes === "" || tipo_pagamento === "" || valor == "" || cliente_id == "" || quarto_id == ""){
             return res.status(400).json({message:"Campo não pode estar vazio", success: false})
         }
 
-        const [result] = await db.query("INSERT INTO reserva (tipo_reserva, data_horario_entrada, data_horario_saida, qtd_hospedes, quarto, tipo_pagamento, valor, observacao, cliente_id, funcionario_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [tipo_reserva, data_horario_entrada, qtd_hospedes, quarto, tipo_pagamento, valor, observacao, cliente_id, funcionario_id])
+        const [result] = await db.query("INSERT INTO reserva (data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacao, cliente_id, quarto_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?)", [data_horario_entrada, qtd_hospedes, tipo_pagamento, valor, observacao, cliente_id, quarto_id])
         
         if(result.affectedRows === 0){
             return res.status(400).json({message:"Não foi possivel cirar a reserva", success: false})
@@ -32,7 +30,7 @@ const criarReserva = async (req, res) =>{
 
 const buscarReservas = async (req, res) => {
     try{
-        const [result] = await db.query("SELECT tipo_reserva, qtd_hospedes, quarto, tipo_pagamento, valor FROM reserva")
+        const [result] = await db.query("SELECT data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, cliente_id, quarto_id valor FROM reserva")
 
         if(result.length === 0){
             return res.status(404).json({ message: "Nenhuma reserva encontrado" })
@@ -45,18 +43,17 @@ const buscarReservas = async (req, res) => {
 }
 
 const editarReserva = async (req, res) => {
-        const tipo_reserva = req.body.tipo_reserva
         const data_horario_entrada = req.body.data_horario_entrada
+        const data_horario_saida = req.body.data_horario_saida
         const qtd_hospedes = req.body.qtd_hospedes
-        const quarto = req.body.quarto
         const tipo_pagamento = req.body.tipo_pagamento
         const valor = req.body.valor
         const observacao = req.body.observacao
         const cliente_id = req.body.cliente_id
-        const funcionario_id = req.body.funcionario_id
+        const quarto_id = req.body.quarto_id
 
     try{
-        const [result] = await db.query("UPDATE reserva SET tipo_reserva = ?, data_horario_entrada = ?, qtd_hospedes = ?, quarto = ?, tipo_pagamento =?, valor = ?, observacao = ?, funcionario = ? WHERE id_cliente = ?", [tipo_reserva, data_horario_entrada, qtd_hospedes, quarto, tipo_pagamento, valor, observacao, funcionario_id, cliente_id])
+        const [result] = await db.query("UPDATE reserva SET data_horario_entrada = ?, data_horario_saida = ?, qtd_hospedes = ?, tipo_pagamento =?, valor = ?, observacao = ? WHERE id_cliente = ?", [data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacao, quarto_id, cliente_id])
 
         if(result.affectedRows === 0){
             return res.status(404).json({message: "reserva não encontrada"})

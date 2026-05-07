@@ -1,4 +1,6 @@
 CREATE DATABASE hotel_db;
+DROP DATABASE hotel_db;
+
 
 CREATE TABLE cliente(
 id_cliente INT NOT NULL AUTO_INCREMENT,
@@ -22,20 +24,28 @@ senha CHAR(64),
 PRIMARY KEY (id_funcionario)
 );
 
+CREATE TABLE quarto(
+id_quarto INT NOT NULL AUTO_INCREMENT,
+numero INT UNIQUE,
+tipo_quarto ENUM("Simples", "Duplo", "Suíte"),
+capacidade INT,
+funcionario_id INT,
+FOREIGN KEY (funcionario_id) REFERENCES funcionario (id_funcionario),
+PRIMARY KEY (id_quarto)
+);
+
 CREATE TABLE reserva(
 id_reserva INT NOT NULL AUTO_INCREMENT,
-tipo_reserva ENUM("Simples", "Duplo", "Suíte"),
 data_horario_entrada DATETIME,
 data_horario_saida DATETIME,
 qtd_hospedes INT,
-quarto INT,
 tipo_pagamento VARCHAR(45),
 valor DECIMAL(9,2),
 observacoes TEXT(100),
 cliente_id INT,
 FOREIGN KEY (cliente_id) REFERENCES cliente (id_cliente),
-funcionario_id INT,
-FOREIGN KEY (funcionario_id) REFERENCES funcionario (id_funcionario),
+quarto_id INT,
+FOREIGN KEY (quarto_id) REFERENCES quarto (id_quarto),
 PRIMARY KEY (id_reserva)
 );
 
@@ -53,9 +63,16 @@ VALUES
 ("Vitor", "vitor@email.com", "89081253292", "(48)95555558", "vitorsenha", "Vespertino"),
 ("Emanuel", "emanuel@email.com", "67831209458", "(48)95555550", "emanuelsenha", "Noturno");
 
-INSERT INTO reserva
-(`tipo_reserva`, `data_horario_entrada`, `data_horario_saida`, `qtd_hospedes`, `quarto`, `tipo_pagamento`, `valor`, `cliente_id`, `funcionario_id`)
+INSERT INTO quarto
+(`numero`, `tipo_quarto`, `capacidade`, `funcionario_id`)
 VALUES
-("Simples", "2026-01-10 10:00:00", "2026-01-20", 1, 100, "cartão á vista", 213.99, 1, 1),
-("Duplo", "2026-02-15 11:00:00", "2026-02-22", 4, 200, "cartão á parcelado", 213.99, 2, 2),
-("Suíte", "2026-03-05 12:00:00", "2026-03-10", 2, 300, "cartão á vista", 213.99, 3, 3);
+(100, "Simples", 3, 1),
+(200, "Duplo", 6, 2),
+(300, "Suíte", 4, 3);
+
+INSERT INTO reserva
+(`data_horario_entrada`, `data_horario_saida`, `qtd_hospedes`, `tipo_pagamento`, `valor`, `cliente_id`, `quarto_id`)
+VALUES
+("2026-01-10 10:00:00", "2026-01-20", 1, "cartão á vista", 213.99, 1, 1),
+("2026-02-15 11:00:00", "2026-02-22", 4, "cartão á parcelado", 353.99, 2, 2),
+("2026-03-05 12:00:00", "2026-03-10", 2, "cartão á vista", 493.99, 3, 3);
