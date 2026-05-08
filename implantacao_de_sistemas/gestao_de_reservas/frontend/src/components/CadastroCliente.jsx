@@ -12,7 +12,7 @@ const CadastroCliente = () => {
         email: '',
         senha: '',
         cpf: '',
-        observacao: '',
+        observacoes: '',
         telefone: ''
     })
 
@@ -56,7 +56,7 @@ const CadastroCliente = () => {
                             name = "cpf"
                             placeholder="000.000.00-00"
                             value={form.cpf}
-                            onChange={(event) => setForm({...form, cpf : event.target.value})}
+                            onAccept={(value) => setForm({...form, cpf : value})}
                         />
                     </div>
 
@@ -68,13 +68,13 @@ const CadastroCliente = () => {
                             name = "telefone"
                             placeholder="(00) 0000-0000"
                             value={form.telefone}
-                            onChange={(event) => setForm({...form, telefone : event.target.value})}
+                            onAccept={(value) => setForm({...form, telefone : value})}
                         />    
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="nome" className="form-label">Turno</label>
-                        <input type="text" className="form-control" id="observacao" placeholder="Ex: Necessidades epeciais, cadeirante, alergias, etc..." value={form.observacao} onChange={(event) =>setForm({...form, observacao : event.target.value})}/>
+                        <label htmlFor="observacoes" className="form-label">Observações</label>
+                        <input type="text" className="form-control" id="observacoes" placeholder="Ex: Necessidades epeciais, cadeirante, alergias, etc..." value={form.observacoes} onChange={(event) =>setForm({...form, observacoes : event.target.value})}/>
                     </div>
 
                     <div className="mb-3">

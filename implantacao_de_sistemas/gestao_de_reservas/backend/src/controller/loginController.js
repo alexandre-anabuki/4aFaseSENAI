@@ -13,7 +13,7 @@ const login = async(req, res) => {
             return res.status(400).json({message: "Email ou senha inválidos", success: false})
         }
 
-        const [result] = await db.query("SELECT id_cliente, nome, email, cpf, telefone, senha FROM cliente WHERE email = ? LIMIT 1", [email])
+        const [result] = await db.query("SELECT id_cliente, nome, email, cpf, telefone, observacao senha FROM cliente WHERE email = ? LIMIT 1", [email])
 
         if(result.length === 0){
             return res.status(400).json({message: "Credenciais inválidas"})
@@ -44,7 +44,8 @@ const login = async(req, res) => {
                 nome: user.nome,
                 email: user.email,
                 cpf: user.cpf,
-                te: user.telefone
+                tel: user.telefone,
+                obs: user.observacao
             },
             success: true
         })

@@ -7,6 +7,7 @@ const criarCliente = async (req, res) =>{
         const email = req.body.email
         const cpf = req.body.cpf
         const telefone = req.body.telefone
+        const observacoes = req.body.observacoes
         const senha = req.body.senha
 
         if(nome === "" || email === "" || cpf === "" || telefone === "" || senha === ""){
@@ -16,7 +17,7 @@ const criarCliente = async (req, res) =>{
         const saltRound = 10
         const hashPassword = await bcrypt.hash(senha, saltRound)
 
-        const [result] = await db.query("INSERT INTO cliente (nome, email, cpf, telefone, senha) VALUE (?, ?, ?, ?, ?)", [nome, email, cpf, telefone, hashPassword])
+        const [result] = await db.query("INSERT INTO cliente (nome, email, cpf, telefone, observacoes, senha) VALUE (?, ?, ?, ?, ?, ?)", [nome, email, cpf, telefone, observacoes, hashPassword])
         
         if(result.affectedRows === 0){
             return res.status(400).json({message:"Não foi possivel cirar o cliente", success: false})
@@ -48,11 +49,11 @@ const editarCliente = async (req, res) => {
     const email = req.body.email
     const cpf = req.body.cpf
     const telefone = req.body.telefone
-    const observacao = req.body.observacao
+    const observacoes = req.body.observacoes
     const id_cliente = req.params.id_cliente
 
     try{
-        const [result] = await db.query("UPDATE cliente SET nome = ?, email = ?, cpf = ?, telefone = ?, observacao = ? WHERE id_cliente = ?", [nome, email, cpf, telefone, observacao, id_cliente])
+        const [result] = await db.query("UPDATE cliente SET nome = ?, email = ?, cpf = ?, telefone = ?, observacoes = ? WHERE id_cliente = ?", [nome, email, cpf, telefone, observacoes, id_cliente])
 
         if(result.affectedRows === 0){
             return res.status(404).json({message: "Cliente não encontrado"})

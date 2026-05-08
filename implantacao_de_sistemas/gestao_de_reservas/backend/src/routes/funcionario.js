@@ -1,7 +1,7 @@
 const express = require("express")
 const routerFuncionario = express.Router()
 
-const {criarFuncionario, editarFuncionario, buscarFuncionarios, deletarFuncionario} = require ('../controller/funcionarioController.js')
+const {criarFuncionario, editarFuncionario, buscarFuncionarios, deletarFuncionario} = require ('../controller/funcionarioControlller.js')
 
 routerFuncionario.post('/funcionario', criarFuncionario)
 routerFuncionario.get('/funcionario', buscarFuncionarios)

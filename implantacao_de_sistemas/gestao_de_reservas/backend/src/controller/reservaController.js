@@ -7,7 +7,7 @@ const criarReserva = async (req, res) =>{
         const qtd_hospedes = req.body.qtd_hospedes
         const tipo_pagamento = req.body.tipo_pagamento
         const valor = req.body.valor
-        const observacao = req.body.observacao
+        const observacoes = req.body.observacoes
         const cliente_id = req.body.cliente_id
         const quarto_id = req.body.quarto_id
 
@@ -15,7 +15,7 @@ const criarReserva = async (req, res) =>{
             return res.status(400).json({message:"Campo não pode estar vazio", success: false})
         }
 
-        const [result] = await db.query("INSERT INTO reserva (data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacao, cliente_id, quarto_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?)", [data_horario_entrada, qtd_hospedes, tipo_pagamento, valor, observacao, cliente_id, quarto_id])
+        const [result] = await db.query("INSERT INTO reserva (data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacoes, cliente_id, quarto_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?)", [data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacoes, cliente_id, quarto_id])
         
         if(result.affectedRows === 0){
             return res.status(400).json({message:"Não foi possivel cirar a reserva", success: false})
@@ -48,12 +48,12 @@ const editarReserva = async (req, res) => {
         const qtd_hospedes = req.body.qtd_hospedes
         const tipo_pagamento = req.body.tipo_pagamento
         const valor = req.body.valor
-        const observacao = req.body.observacao
+        const observacoes = req.body.observacoes
         const cliente_id = req.body.cliente_id
         const quarto_id = req.body.quarto_id
 
     try{
-        const [result] = await db.query("UPDATE reserva SET data_horario_entrada = ?, data_horario_saida = ?, qtd_hospedes = ?, tipo_pagamento =?, valor = ?, observacao = ? WHERE id_cliente = ?", [data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacao, quarto_id, cliente_id])
+        const [result] = await db.query("UPDATE reserva SET data_horario_entrada = ?, data_horario_saida = ?, qtd_hospedes = ?, tipo_pagamento =?, valor = ?, observacoes = ? WHERE id_cliente = ?", [data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacoes, quarto_id, cliente_id])
 
         if(result.affectedRows === 0){
             return res.status(404).json({message: "reserva não encontrada"})

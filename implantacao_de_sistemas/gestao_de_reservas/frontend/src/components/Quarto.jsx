@@ -59,7 +59,7 @@ function Quarto() {
 
                     <div className="mb-3">
                         <label htmlFor="funcionario_id" className="form-label">ID</label>
-                        <input type="text" className="form-control" id="funcioanrio_id" value={form.funcionario_id} onChange={(event) =>setForm({...form, funcionario_id : event.target.value})}/>
+                        <input type="text" className="form-control" id="funcionario_id" value={form.funcionario_id} onChange={(event) =>setForm({...form, funcionario_id : event.target.value})}/>
                     </div>
 
                     <button className="btn btn-danger" type="submit">Salvar Cadastro</button>
