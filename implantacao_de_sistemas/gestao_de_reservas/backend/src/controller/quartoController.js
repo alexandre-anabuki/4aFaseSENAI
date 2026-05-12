@@ -40,12 +40,12 @@ const buscarQuartos = async (req, res) => {
 
 const editarQuarto = async (req, res) => {
         const tipo_quarto = req.body.tipo_quarto
-        const numero = req.body.numero
+        const numero = req.params.numero
         const capacidade = req.body.capacidade
         const funcionario_id = req.body.funcionario_id
 
     try{
-        const [result] = await db.query("UPDATE quarto SET tipo_quarto = ?, numero = ?, capacidade = ? WHERE funcionario_id = ?", [tipo_quarto, numero, capacidade, funcionario_id])
+        const [result] = await db.query("UPDATE quarto SET tipo_quarto = ?, funcionario_id = ?, capacidade = ? WHERE numero = ?", [tipo_quarto, funcionario_id, capacidade,  numero])
 
         if(result.affectedRows === 0){
             return res.status(404).json({message: "quarto não encontrada"})
@@ -59,7 +59,7 @@ const editarQuarto = async (req, res) => {
 
 const deletarQuarto = async (req, res) => {
     try {
-        const [result] = await db.query("DELETE FROM quarto WHERE funcionario_id = ?", [req.params.cliente_id])
+        const [result] = await db.query("DELETE FROM quarto WHERE numero = ?", [req.params.numero])
 
         if(result.affectedRows === 0){
             return res.status(404).json({message: "quarto não encontrado"})

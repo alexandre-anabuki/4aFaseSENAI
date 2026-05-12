@@ -5,7 +5,7 @@ const {criarQuarto, editarQuarto, buscarQuartos, deletarQuarto} = require ('../c
 
 routerQuarto.post('/quarto', criarQuarto)
 routerQuarto.get('/quarto', buscarQuartos)
-routerQuarto.patch('/quarto/:id', editarQuarto)
-routerQuarto.delete('/quarto/:funcionario_id', deletarQuarto)
+routerQuarto.patch('/quarto/:numero', editarQuarto)
+routerQuarto.delete('/quarto/:numero', deletarQuarto)
 
 module.exports = routerQuarto

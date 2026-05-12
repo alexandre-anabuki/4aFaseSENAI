@@ -67,7 +67,7 @@ const editarCliente = async (req, res) => {
 
 const deletarCliente = async (req, res) => {
     try {
-        const [result] = await db.query("DELETE FROM cliente WHERE email = ?", [req.params.email])
+        const [result] = await db.query("DELETE FROM cliente WHERE id_cliente = ?", [req.params.id_cliente])
 
         if(result.affectedRows === 0){
             return res.status(404).json({message: "Cliente não encontrado"})

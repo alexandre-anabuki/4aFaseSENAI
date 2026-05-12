@@ -5,7 +5,7 @@ const {criarReserva, editarReserva, buscarReservas, deletarReserva} = require ('
 
 routerReserva.post('/reserva', criarReserva)
 routerReserva.get('/reserva', buscarReservas)
-routerReserva.patch('/reserva/:id', editarReserva)
-routerReserva.delete('/reserva/:cliente_id', deletarReserva)
+routerReserva.patch('/reserva/:id_reserva', editarReserva)
+routerReserva.delete('/reserva/:id_reserva', deletarReserva)
 
 module.exports = routerReserva

@@ -43,6 +43,7 @@ const buscarReservas = async (req, res) => {
 }
 
 const editarReserva = async (req, res) => {
+        const id_reserva = req.params.id_reserva
         const data_horario_entrada = req.body.data_horario_entrada
         const data_horario_saida = req.body.data_horario_saida
         const qtd_hospedes = req.body.qtd_hospedes
@@ -53,7 +54,7 @@ const editarReserva = async (req, res) => {
         const quarto_id = req.body.quarto_id
 
     try{
-        const [result] = await db.query("UPDATE reserva SET data_horario_entrada = ?, data_horario_saida = ?, qtd_hospedes = ?, tipo_pagamento =?, valor = ?, observacoes = ? WHERE id_cliente = ?", [data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacoes, quarto_id, cliente_id])
+        const [result] = await db.query("UPDATE reserva SET data_horario_entrada = ?, data_horario_saida = ?, qtd_hospedes = ?, tipo_pagamento =?, valor = ?, observacoes = ?, quarto_id = ?, cliente_id = ? WHERE id_reserva = ?", [data_horario_entrada, data_horario_saida, qtd_hospedes, tipo_pagamento, valor, observacoes, quarto_id, cliente_id, id_reserva])
 
         if(result.affectedRows === 0){
             return res.status(404).json({message: "reserva não encontrada"})
@@ -67,7 +68,7 @@ const editarReserva = async (req, res) => {
 
 const deletarReserva = async (req, res) => {
     try {
-        const [result] = await db.query("DELETE FROM reserva WHERE cliente_id = ?", [req.params.cliente_id])
+        const [result] = await db.query("DELETE FROM reserva WHERE id_reserva = ?", [req.params.id_reserva])
 
         if(result.affectedRows === 0){
             return res.status(404).json({message: "reserva não encontrado"})
