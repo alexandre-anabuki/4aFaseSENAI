@@ -1,0 +1,75 @@
+CREATE DATABASE farmacia_db;
+
+CREATE TABLE usuario(
+id_usuario INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(50),
+email VARCHAR(50),
+cpf VARCHAR(50),
+senha CHAR(64),
+PRIMARY KEY (id_usuario)
+);
+
+CREATE TABLE fornecedor (
+id_fornecedor INT NOT NULL AUTO_INCREMENT,
+nome_fornecedor VARCHAR(50),
+nome_produto VARCHAR(50),
+quantidade INT,
+data_pedido DATE,
+status_pedido VARCHAR(50),
+PRIMARY KEY (id_fornecedor)
+);
+
+CREATE TABLE medicamento (
+id INT NOT NULL AUTO_INCREMENT,
+nome VARCHAR(50),
+tipo VARCHAR(50),
+dosagem DECIMAL(9,2),
+marca VARCHAR(50),
+quantidade INT,
+estoque_minimo INT,
+fornecedor_id INT,
+FOREIGN KEY (fornecedor_id) REFERENCES fornecedor (id_fornecedor),
+PRIMARY KEY (id)
+);
+
+CREATE TABLE movimentacao (
+id_movimentacao INT NOT NULL AUTO_INCREMENT,
+data_movimentacao DATE,
+tipo ENUM ("Entrada", "Saída"),
+quantidade INT,
+valor DECIMAL(9,2),
+usuario_id INT,
+FOREIGN KEY (usuario_id) REFERENCES usuario (id_usuario),
+medicamento_id INT,
+FOREIGN KEY (medicamento_id) REFERENCES medicamento (id),
+PRIMARY KEY (id_movimentacao)
+);
+
+INSERT INTO usuario
+(`nome`, `email`, `cpf`, `senha`)
+VALUES
+("João", "joao@email.com", "00011122299", "joaosenha"),
+("Maria", "maria@email.com", "11100022288", "mariasenha"),
+("Lucas", "lucas@email.com", "33399922277", "lucassenha");
+
+INSERT INTO fornecedor
+(`nome_fornecedor`, `nome_produto`, `quantidade`, `data_pedido`, `status_pedido`)
+VALUES
+("Panvel", "Dorflex", 100, "2026-05-21", "Pendente"),
+("Preço Popular", "Vertix", 90, "2026-03-11", "Concluído"),
+("Raia", "Aspirina", 40, "2026-04-15", "Cancelado");
+
+INSERT INTO medicamento
+(`nome`, `tipo`, `dosagem`, `marca`, `quantidade`, `estoque_minimo`, `fornecedor_id`)
+VALUES
+("Dorflex", "dipirona", 10, "fulano", 100, 20, 1),
+("Nessaldina", "dipirona", 10, "fulano", 100, 10, 1),
+("Resfenol", "dipirona", 10, "fulano", 100, 5, 1);
+
+INSERT INTO movimentacao
+(`data_movimentacao`, `tipo`, `quantidade`, `valor`, `usuario_id`, `medicamento_id`)
+VALUES
+("2026-02-20", "Entrada", 100, 50.00, 1, 1),
+("2026-03-10", "Saída", 5, 30.90, 2, 3),
+("2026-05-04", "Entrada", 40, 45.72, 3, 2);
+

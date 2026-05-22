@@ -1,0 +1,8 @@
+- O sistema deve mostrar o usuário logado
+- O sistema deve direcionar o usuário a tela de login ao sair
+- O usuário deve fazer o cadastro do medicamento
+- O usuário deve modificar dados do medicamento
+- O usuário deve ver uma lista de medicamentos cadastrados
+- O usuário deve excluir medicamentos cadastrados
+- O sistema deve emitir um histórico de movimentação do medicamento mostrando a data e o responsável
+- O sistema deve emitir um alerta quando um medicamento estiver na quantidade mínima
