@@ -1,8 +1,26 @@
 - O sistema deve mostrar o usuário logado
+	- Após realizar o login com sucesso, os sistema deve mostrar o nome do usuário logado na barra de menu
+
 - O sistema deve direcionar o usuário a tela de login ao sair
+	- Após confirmar o logoff, o sistema deve sair da tela de menu e redirecionar o usuário a tela de login
+
 - O usuário deve fazer o cadastro do medicamento
+	- Ao clicar em cadastro de medicamento, um tela com campos vazios, devem ser preenchidos pelo usuário
+	e deve salvar esses dados ao confirmar o cadastro
+
 - O usuário deve modificar dados do medicamento
+	- Ao selecionar um medicamento já cadastrado no sistema, o usuário pode alterar os campos disponíveis
+	e salvar no sistema, as alterações feitas
+
 - O usuário deve ver uma lista de medicamentos cadastrados
+	- Uma tela com lista de medicamentos já registrados pelo sistema deve ser mostrada
+
 - O usuário deve excluir medicamentos cadastrados
+	- Ao selecionar o medicamento a ser excluído, uma mensagem de confirmação será mostrada ao usuário
+
 - O sistema deve emitir um histórico de movimentação do medicamento mostrando a data e o responsável
+	- Ao confirmar uma movimentação no estoque do sistema, um histórico será feito registrando todas as informações
+	adequadas
+
 - O sistema deve emitir um alerta quando um medicamento estiver na quantidade mínima
+	- Quando um produto atingir um valor mínimo dado, um alerta deverá ser emitido 
