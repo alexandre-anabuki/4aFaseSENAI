@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model agendamento {
+  id_agendamento  Int           @id @default(autoincrement())
+  tipo            String?       @db.VarChar(45)
+  data_horario    DateTime?     @db.DateTime(0)
+  bairro          String?       @db.VarChar(45)
+  rua             String?       @db.VarChar(45)
+  cep             Int?
+  numero          Int?
+  observacao      String?       @db.TinyText
+  cliente_id      Int?
+  profissional_id Int?
+  cliente         cliente?      @relation(fields: [cliente_id], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "agendamento_ibfk_1")
+  profissional    profissional? @relation(fields: [profissional_id], references: [id_profissional], onDelete: NoAction, onUpdate: NoAction, map: "agendamento_ibfk_2")
+
+  @@index([cliente_id], map: "cliente_id")
+  @@index([profissional_id], map: "profissional_id")
+}
+
+model cliente {
+  id_cliente  Int           @id @default(autoincrement())
+  nome        String?       @db.VarChar(45)
+  email       String?       @unique(map: "email") @db.VarChar(45)
+  cpf         String?       @db.VarChar(45)
+  telefone    String?       @db.VarChar(45)
+  senha       String?       @db.Char(64)
+  agendamento agendamento[]
+}
+
+model profissional {
+  id_profissional Int           @id @default(autoincrement())
+  nome            String?       @db.VarChar(45)
+  email           String?       @unique(map: "email") @db.VarChar(45)
+  cpf             String?       @db.VarChar(45)
+  telefone        String?       @db.VarChar(45)
+  especializacao  String?       @db.VarChar(45)
+  senha           String?       @db.Char(64)
+  agendamento     agendamento[]
+}
+
+
+model Marcas {
+  id_marca          Int            @id @default(autoincrement())
+  nome              String         @db.VarChar(45)
+  ano_modelo        String         @db.VarChar(45)
+  ano_fabricacao    String         @db.VarChar(45)
+  data_cadastro     String         @db.VarChar(45)
+  data_atualizacao  String         @db.VarChar(45)
+  ativo             Int            @db.Int
+}

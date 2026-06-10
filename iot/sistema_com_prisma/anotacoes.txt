@@ -1,0 +1,113 @@
+Documentação de instalação do prisma
+
+https://www.prisma.io/docs/prisma-orm/quickstart/mysql
+
+## Inicializa o typescript
+
+npm install typescript tsx @types/node --save-dev
+
+-quando eu rodo o comando abaixo, cria o arquivo tsconfig.json
+npx tsc --init
+
+
+
+## Instala as depedencias necessarias do meu projeto
+
+npm install prisma @types/node --save-dev
+npm install @prisma/client @prisma/adapter-mariadb dotenv
+
+
+
+## Atualizar o tsconfig.json para aceitar a compatibilidade do esm
+
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2023",
+    "strict": true,
+    "esModuleInterop": true,
+    "ignoreDeprecations": "6.0"
+  }
+}
+
+
+
+## Atualizar o packge.json  o "type" para "module"
+
+no arquivo packge.json altere:
+{
+    "type": "module"
+}
+
+
+
+## Inicializar o prisma orm
+
+npx prisma
+
+-o comando abaixo cria a pasta prisma e o arquivo prisma.config.ts
+npx prisma init --datasource-provider mysql --output ../generated/prisma
+
+
+
+## Atualizar o arquivo .env
+
+DATABASE_URL="mysql://username:password@localhost:3306/mydb"
+DATABASE_USER="username"
+DATABASE_PASSWORD="password"
+DATABASE_NAME="mydb"
+DATABASE_HOST="localhost"
+DATABASE_PORT=3306
+
+
+
+## Criar a migration
+
+-Cria sua primeira migration
+npx prisma migrate dev --name init
+
+-Roda o comando e cria o prisma client
+npx prisma generate
+
+
+
+## Criar a pasta lib e adicionar o arquivo prisma.js
+
+import "dotenv/config";
+import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import { PrismaClient } from "../generated/prisma/client";
+
+const adapter = new PrismaMariaDb({
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
+  connectionLimit: 5,
+});
+const prisma = new PrismaClient({ adapter });
+
+export { prisma };
+
+
+
+## Metodos basicos do prisma para utilização
+
+import { PrismaClient } from "../prisma/generated/client"
+const prsima = new PrismaClient()
+
+await prisma.user.create(...) //criar
+await primas.user.findUnique(...) //encontrar um registro
+await primas.user.findMany(...) //encontrar varios registros
+await primas.user.update(...) // Atualizar
+await primas.user.delete(...) //deletar
+await primas.user.upsert(...) // verifica se um registro especifico existe no banco de dados, se existir, ele atualiza, se não existir ele cria um novo registro
+
+
+
+## Puxar as alterações realizadas no banco
+
+- Sincronizar o banco de dados
+npx prisma db pull
+
+
